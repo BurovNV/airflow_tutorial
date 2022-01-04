@@ -10,7 +10,7 @@ build:
 		docker build -t airflow_tutorial .
 
 run:
-		docker run -it -p 8080:8080 --mount type=bind,source="$(current_dir)"/dags,target=/root/airflow/dags   -v /var/run/docker.sock:/var/run/docker.sock airflow_tutorial
+		docker run -it -p 8080:8080 --mount type=bind,source="$(pwd)"/dags,target=/root/airflow/dags   -v /var/run/docker.sock:/var/run/docker.sock airflow_tutorial
 
 launch:
 		make stop

@@ -3,38 +3,38 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.utils.dates import days_ago
 
-our_first_dag = DAG(
+dag = DAG(
     "first_dag",
     start_date=days_ago(0, 0, 0, 0, 0),
     tags=['bash']
 )
 
-operation_1 = BashOperator(
+task_1 = BashOperator(
     bash_command="pwd",
-    dag=our_first_dag,
-    task_id='operation_1'
+    dag=dag,
+    task_id='task_1'
 )
 
-operation_2 = BashOperator(
+task_2 = BashOperator(
     bash_command="sleep 5",
-    dag=our_first_dag,
-    task_id='operation_2'
+    dag=dag,
+    task_id='task_2'
 )
 
-operation_3 = BashOperator(
-    bash_command="sleep 20",
-    dag=our_first_dag,
-    task_id='operation_3'
+task_3 = BashOperator(
+    bash_command="sleep 10",
+    dag=dag,
+    task_id='task_3'
 )
 
-operation_4 = BashOperator(
-    bash_command="""echo "completed" """,
-    dag=our_first_dag,
-    task_id='operation_4'
+task_4 = BashOperator(
+    bash_command="echo 'completed' ",
+    dag=dag,
+    task_id='task_4'
 )
 
-# operation
+# tasks
 
-operation_1 >> [operation_2, operation_3]
+task_1 >> [task_2, task_3]
 
-[operation_2, operation_3] >> operation_4
+[task_2, task_3] >> task_4

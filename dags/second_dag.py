@@ -5,7 +5,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.utils.dates import days_ago
 
-our_first_dag = DAG(
+dag = DAG(
     "second_dag",
     description='Python DAG example',
     schedule_interval="* * * * *",
@@ -23,7 +23,7 @@ def download_titanic_dataset():
 download_dataframe = PythonOperator(
     task_id='download_titanic_dataset',
     python_callable=download_titanic_dataset,
-    dag=our_first_dag
+    dag=dag
 )
 
 
@@ -41,7 +41,7 @@ def transform_titanic_dataset():
 transform_dataframe = PythonOperator(
     task_id='transform_dataset',
     python_callable=transform_titanic_dataset,
-    dag=our_first_dag
+    dag=dag
 )
 
 # change working directory to /
